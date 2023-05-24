@@ -38,13 +38,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'blog.apps.BlogConfig',
+    'blog.apps.BlogConfig',
     "users.apps.UsersConfig",
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg',
     'corsheaders'
 ]
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1000),
@@ -168,7 +179,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIR = BASE_DIR = Path(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR = Path(BASE_DIR/'staticfiles')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CORS_ALLOW_ALL_ORIGINS = True
