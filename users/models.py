@@ -15,5 +15,5 @@ class User(AbstractUser):
     gender =  models.CharField(max_length=10, blank=True, null=True)
 
 
-    USERNAME_FIELD = 'email'
+    # USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
