@@ -1,9 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.decorators import api_view
-from .serializers import BlogsSerializer, GroupSerializer
+from .serializers import BlogsSerializer, GroupSerializer, TopicSerializer
 from rest_framework.permissions import IsAuthenticated
-from .models import Blog, Group
+from .models import Blog, Group, Topic
 from rest_framework.response import Response
 from users.models import User
 from rest_framework import status
@@ -100,7 +100,8 @@ def read_update_delete_group(request, user_id, group_id):
     return Response({"error": "Invalid request"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-
+@api_view(["GET"])
 def Read_topics(request):
-    pass
-
+    topics = Topic.objects.all()
+    serializer = TopicSerializer(topics, many=True)
+    return Response(serializer.data)

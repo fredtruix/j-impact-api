@@ -7,6 +7,7 @@ from users.models import User
 
 class Topic(models.Model):
     name = models.CharField(max_length=200)
+    images = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return self.name

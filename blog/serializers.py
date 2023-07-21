@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Blog, Group
+from .models import Blog, Group, Topic
 
 
 
@@ -17,3 +17,9 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ["id", "host", "topic", "name", 'description', "participants", "updated", "created"]
+
+
+class TopicSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = ["id","name","images"]
