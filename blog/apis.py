@@ -104,4 +104,4 @@ def read_update_delete_group(request, user_id, group_id):
 def Read_topics(request):
     topics = Topic.objects.all()
     serializer = TopicSerializer(topics, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)

@@ -22,4 +22,5 @@ class GroupSerializer(serializers.ModelSerializer):
 class TopicSerializer(serializers.ModelSerializer):
 
     class Meta:
+        model = Topic
         fields = ["id","name","images"]
