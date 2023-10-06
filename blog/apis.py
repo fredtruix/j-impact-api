@@ -7,17 +7,23 @@ from .models import Blog, Group, Topic
 from rest_framework.response import Response
 from users.models import User
 from rest_framework import status
+from rest_framework.decorators import permission_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 
 
 class BlogListView(ListCreateAPIView):
     serializer_class = BlogsSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
     def get_queryset(self):
         return Blog.objects.all()
 
 
 @api_view(["GET"])
+@permission_classes((IsAuthenticated))
 def UserBlogList(request, id):
     try:
         user = User.objects.get(id=id)
@@ -31,6 +37,7 @@ def UserBlogList(request, id):
 
 
 @api_view(["GET", "PATCH", "DELETE"])
+@permission_classes((IsAuthenticated))
 def blog_update_delete(request, user_id, blog_id):
     try:
         user = User.objects.get(id=user_id)
@@ -62,6 +69,7 @@ def blog_update_delete(request, user_id, blog_id):
 
 
 @api_view(["GET", "POST"])
+@permission_classes((IsAuthenticated))
 def Group_list_create(request):
     group = Group.objects.all()
     if request.method == "POST":
@@ -77,6 +85,7 @@ def Group_list_create(request):
 
 
 @api_view(["GET","PATCH","DELETE"])
+@permission_classes((IsAuthenticated))
 def read_update_delete_group(request, user_id, group_id):
     try:
         user = User.objects.get(id=user_id)
@@ -101,6 +110,7 @@ def read_update_delete_group(request, user_id, group_id):
 
 
 @api_view(["GET"])
+@permission_classes((IsAuthenticated))
 def Read_topics(request):
     topics = Topic.objects.all()
     serializer = TopicSerializer(topics, many=True)
